@@ -301,13 +301,14 @@ class Empowering(object):
             errors.append(self.get_results_by_filter(url, search_pattern))
         return errors
 
-    def get_ot_status(self, ot, start, end):
+    def get_ot_status(self, ot, start, end, page=1, max_results=200):
         url = 'module_task_reports/'
 
         if not EmpoweringOTResults.ot_is_supported(ot):
             raise NotImplementedError
 
         search_pattern = '?where={"module":"%s"}' % ot.lower()
+        search_pattern += '&page={page}&max_results={max_results}'.format(**locals())
         url = requests.compat.urljoin(url, search_pattern)
 
         req = Empowering_GET(url)

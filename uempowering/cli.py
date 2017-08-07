@@ -79,6 +79,14 @@ def get_contract_errors(ctx, ids):
 def get_ot_status(ctx, ot, start, end):
     click.echo(json.dumps(ctx.obj['emp'].get_ot_status(ot, start, end), indent=4))
 
+@uempowering.command()
+@click.pass_context
+@click.argument('ot', nargs=1)
+@click.argument('contract', nargs=1)
+@click.option('--start', default=None)
+@click.option('--end', default=None)
+def get_ot_result(ctx, ot, contract, start, end):
+    click.echo(json.dumps(ctx.obj['emp'].get_results_by_contract(ot, contract, start, end), indent=4))
 
 if __name__ == '__main__':
     uempowering(obj={'config': config})
